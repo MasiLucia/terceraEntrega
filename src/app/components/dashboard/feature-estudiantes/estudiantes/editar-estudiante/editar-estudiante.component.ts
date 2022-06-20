@@ -33,7 +33,7 @@ export class EditarEstudianteComponent implements OnInit {
     }
 
   ngOnInit(): void {
-   this.inicializar(this.data);
+  this.inicializar(this.data);
   this._estudiantesService.getEstudiantesList();
 
   }
@@ -72,7 +72,7 @@ export class EditarEstudianteComponent implements OnInit {
 
   inicializar(estudiante:EstudiantesLista) {
     this.form = this.fb.group({
-      id:  [""],
+      idEstudiante:  [""],
       nombre:  ["",  [Validators.required, Validators.maxLength(10), ]],
       apellido:  ["",  [Validators.required, Validators.maxLength(10), ]],
       edad:  ["",  [Validators.required]],
@@ -80,11 +80,11 @@ export class EditarEstudianteComponent implements OnInit {
       telefono:  ["", [Validators.required]],
     })
     console.log(this.form);
-    this.form.get('id')?.patchValue(estudiante.id);
+    this.form.get('idEstudiante')?.patchValue(estudiante.idEstudiante);
     this.form.get('nombre')?.patchValue(estudiante.nombre);
     this.form.get('apellido')?.patchValue(estudiante.apellido);
     this.form.get('edad')?.patchValue(estudiante.edad);
-    this.form.controls["correo"].setValue(estudiante.correo);
+    this.form.get('correo')?.patchValue(estudiante.correo);
     this.form.get('telefono')?.patchValue(estudiante.telefono);
 
   }
@@ -93,7 +93,7 @@ export class EditarEstudianteComponent implements OnInit {
   updateEstudiante(estudianteForm: FormGroup){
     var estudianteToUpdate: EstudiantesLista={
 
-        id: estudianteForm.value.id,
+        idEstudiante: estudianteForm.value.idEstudiante,
         nombre: estudianteForm.value.nombre,
         apellido: estudianteForm.value.apellido,
         edad: estudianteForm.value.edad,

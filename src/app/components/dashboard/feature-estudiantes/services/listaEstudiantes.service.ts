@@ -1,4 +1,4 @@
-import { Estudiantes, EstudiantesLista } from 'src/app/shared/interfaces/estudiantes';
+import { EstudiantesLista } from 'src/app/shared/interfaces/estudiantes';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -24,7 +24,7 @@ export class ListaEstudiantesService {
   //   {id:10,nombre: "Esteban",  apellido:"De la Torre",edad:78 , telefono: 5465468547 , correo: 'algo@ejemplo'}
   // ];
 
-  listaEstudiantes = 'https://62a7cefbbedc4ca6d7cdb902.mockapi.io/apicoder/v1/users/'
+  listaEstudiantes = 'https://62af7944b0a980a2ef40b08d.mockapi.io/campus/v1/estudiantes/'
 
   constructor(private http: HttpClient) { }
 
@@ -63,9 +63,9 @@ export class ListaEstudiantesService {
   // }
 
 
-getSingleStudent(id:number): Observable<EstudiantesLista> {
+getSingleStudent(idEstudiante:number): Observable<EstudiantesLista> {
   var response: any;
-  response  = this.http.get<EstudiantesLista>(this.listaEstudiantes + id ).subscribe(data => {
+  response  = this.http.get<EstudiantesLista>(this.listaEstudiantes + idEstudiante ).subscribe(data => {
    return data;
    })
  return response;
@@ -84,23 +84,19 @@ createEstudiante(estudiante: EstudiantesLista):Observable<EstudiantesLista> {
 
 }
 
-deleteEstudiante(id: number): Observable<EstudiantesLista> {
-  return this.http.delete<EstudiantesLista>(this.listaEstudiantes + id);
+deleteEstudiante(idEstudiante: number): Observable<EstudiantesLista> {
+  return this.http.delete<EstudiantesLista>(this.listaEstudiantes + idEstudiante);
 }
 
 
 updateEstudianteSer(estudiante: EstudiantesLista): Observable<EstudiantesLista> {
-
   var response: any;
-  console.log("data")
-  response  = this.http.put<EstudiantesLista>(this.listaEstudiantes + estudiante.id, estudiante).subscribe(data => {
+  response  = this.http.put<EstudiantesLista>(this.listaEstudiantes + estudiante.idEstudiante, estudiante).subscribe(data => {
     console.log("data")
     console.log(data)
    return data;
    })
  return response;
-
-
 
 }
 

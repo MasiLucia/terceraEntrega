@@ -1,7 +1,6 @@
-import { Estudiantes } from "./estudiantes";
 
 export interface Cursos {
-  id: number;
+  idCurso: number;
   cursoNombre: string;
   cursoDias: string;
   precio: number;

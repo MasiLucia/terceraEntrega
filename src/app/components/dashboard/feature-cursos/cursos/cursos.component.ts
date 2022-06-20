@@ -22,14 +22,15 @@ export class CursosComponent implements OnInit {
 
   datosUsuario: string;
 
-  listaCursos: Cursos[] = [];
+  listaCursos: Cursos[];
 
   admin: boolean = false;
 
 
-  displayedColumns: string[] = ['cursoNombre', 'cursoDias','precio','profesor', 'acciones'];
+  displayedColumns: string[] = ['cursoNombre', 'cursoDias','precio','profesor', 'detalle', 'acciones'];
 
   dataSource = new MatTableDataSource<any>();
+
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -45,97 +46,169 @@ export class CursosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.loadView();
+    this.getCursos();
   }
 
-  validaRol(){
-    this.datosUsuario = JSON.stringify(localStorage.getItem('rol'));
-    console.log(this.datosUsuario);
+//   validaRol(){
+//     this.datosUsuario = JSON.stringify(localStorage.getItem('rol'));
+//     console.log(this.datosUsuario);
 
-    if(localStorage.getItem('rol') === 'admin')
-    {
-      console.log("ES ADMIN")
-      this.admin=true;
+//     if(localStorage.getItem('rol') === 'admin')
+//     {
+//       console.log("ES ADMIN")
+//       this.admin=true;
 
-    }
-    else{
-    this.admin=false;
-    console.log("ES USER")
-    }
-  }
-  loadView(){
-    this.cargarCursos();
-    this.validaRol()
-  }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort
-  }
-  cargarCursos(){
-    this.listaCursos = this._cursosService.getCursos();
-    this.dataSource = new MatTableDataSource(this.listaCursos);
-    this.ngAfterViewInit();
-  }
+//     }
+//     else{
+//     this.admin=false;
+//     console.log("ES USER")
+//     }
+//   }
+//   loadView(){
+//     this.cargarCursos();
+//     this.validaRol()
+//   }
+//   applyFilter(event: Event) {
+//     const filterValue = (event.target as HTMLInputElement).value;
+//     this.dataSource.filter = filterValue.trim().toLowerCase();
+//   }
+//   ngAfterViewInit() {
+//     this.dataSource.paginator = this.paginator;
+//     this.dataSource.sort = this.sort
+//   }
+//   cargarCursos(){
+//     this.listaCursos = this._cursosService.getCursos();
+//     this.dataSource = new MatTableDataSource(this.listaCursos);
+//     this.ngAfterViewInit();
+//   }
 
-  eliminarCursos(index: number){
-    console.log(index);
-    this._cursosService.eliminarCursos(index);
-    this.cargarCursos();
-    this._snackBar.open('Estudiante eliminado con exito','', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration: 1500,
+//   eliminarCursos(index: number){
+//     console.log(index);
+//     this._cursosService.eliminarCursos(index);
+//     this.cargarCursos();
+//     this._snackBar.open('Estudiante eliminado con exito','', {
+//       horizontalPosition: 'center',
+//       verticalPosition: 'top',
+//       duration: 1500,
+//     })
+//   }
+
+//   openDialog2(id_delform:number): void{
+//     const curso = this._cursosService.getCursos().find(c => c.id === id_delform);
+//     const dialogRef = this.dialog.open(DetalleCursosComponent, {
+//       data: curso,
+//       width: '600px',
+//     });
+//     dialogRef.afterClosed().subscribe(result => {
+//       console.log('The dialog was closed');
+//       console.log(result);
+//       this.cargarCursos();
+//     });
+//   }
+
+//   editarEstudiante(id:number){
+//     this._snackBar.open('Registro de estudiante editado','', {
+//      horizontalPosition: 'center',
+//      verticalPosition: 'top',
+//      duration: 1500,
+//  })
+// }
+
+
+//  ingresarAdmin(){
+//   console.log("ACTIVANDO EL ADMIN")
+//    this.admin = true;
+//  }
+//  ingresarUsuario(){
+//    this.admin = false;
+//  }
+
+
+//  openDialog(id_delform:number): void {
+//   const estudiante = this._cursosService.getCursos().find(c => c.id === id_delform);
+//   const dialogRef = this.dialog.open(EditarCursoComponent, {
+//     data: estudiante,
+//     width: '1250px',
+
+//   });
+
+//   dialogRef.afterClosed().subscribe(result => {
+//     console.log('The dialog was closed');
+//     console.log(result);
+//     this.cargarCursos();
+//   });
+// }
+
+
+getCursos() {
+  this._cursosService.getCursosList().subscribe(
+    (data)=> {
+     this.listaCursos= data;
+
+     console.log("data");
+     console.log(this.listaCursos);
     })
-  }
-
-  openDialog2(id_delform:number): void{
-    const curso = this._cursosService.getCursos().find(c => c.id === id_delform);
-    const dialogRef = this.dialog.open(DetalleCursosComponent, {
-      data: curso,
-      width: '600px',
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
-      this.cargarCursos();
-    });
-  }
-
-  editarEstudiante(id:number){
-    this._snackBar.open('Registro de estudiante editado','', {
-     horizontalPosition: 'center',
-     verticalPosition: 'top',
-     duration: 1500,
- })
 }
 
 
- ingresarAdmin(){
-  console.log("ACTIVANDO EL ADMIN")
-   this.admin = true;
- }
- ingresarUsuario(){
-   this.admin = false;
- }
 
+openDialog2(curso: Cursos) {
+const dialogRef = this.dialog.open(DetalleCursosComponent, {
+  width: '600px',
+  height: '600px',
+  panelClass: 'makeItMiddle',
+  data: {
+    idCurso: curso.idCurso,
+    cursoNombre: curso.cursoNombre,
+    cursoDias: curso.cursoDias,
+    precio: curso.precio,
+    profesor:curso.profesor,
+    detalle: curso.detalle,
+  },
+});
 
- openDialog(id_delform:number): void {
-  const estudiante = this._cursosService.getCursos().find(c => c.id === id_delform);
+dialogRef.afterClosed().subscribe((result: any) => {
+  this.router.navigate(['dashboard/cursos']);
+});
+}
+
+openDialog(curso: Cursos) {
   const dialogRef = this.dialog.open(EditarCursoComponent, {
-    data: estudiante,
-    width: '1250px',
-
+    width: '1000px',
+    panelClass: 'makeItMiddle',
+    data: {
+      idCurso: curso.idCurso,
+    cursoNombre: curso.cursoNombre,
+    cursoDias: curso.cursoDias,
+    precio: curso.precio,
+    profesor:curso.profesor,
+    detalle: curso.detalle,
+    },
   });
 
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed');
-    console.log(result);
-    this.cargarCursos();
+  dialogRef.afterClosed().subscribe((result: any) => {
+    this._cursosService.updateCursoSer(result).subscribe(() => {
+      // this.store.dispatch(cargarAlumnos());
+    });
   });
 }
+
+
+getCursoDetails(idCurso:number){
+this._cursosService.getSingleCurso(idCurso).subscribe(
+  (data)=>{
+    console.log(data)
+  }
+)
+}
+
+deleteCurso(idCurso:number){
+this._cursosService.deleteCurso(idCurso).subscribe(
+  (data)=> {
+    this.getCursos();
+  }
+)
+}
+
 
 }

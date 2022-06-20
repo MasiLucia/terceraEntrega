@@ -6,7 +6,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { Component, Inject, OnInit } from '@angular/core';
 import { CursosService } from '../../feature-cursos/cursos/services/cursos.service';
 import { Cursos } from 'src/app/shared/interfaces/cursos';
-import { Estudiantes, EstudiantesLista } from 'src/app/shared/interfaces/estudiantes';
+import { EstudiantesLista } from 'src/app/shared/interfaces/estudiantes';
 import { ListaEstudiantesService } from '../../feature-estudiantes/services/listaEstudiantes.service';
 
 
@@ -19,7 +19,7 @@ import { ListaEstudiantesService } from '../../feature-estudiantes/services/list
 
 
 export class CrearInscripcionComponent implements OnInit {
-  cursos: Cursos[] = this._icursoService.getCursos();
+  // cursos: Cursos[] = this._icursoService.getCursos();
   // estudiantes: EstudiantesLista[] = this._estudiantesService.getEstudiantes();
   dias: any[] = ['lunes y miercoles', 'martes y jueves', 'sabado', 'miercoles y viernes'];
   form: FormGroup;
@@ -36,7 +36,7 @@ export class CrearInscripcionComponent implements OnInit {
                  this.value = navigation?.extras?.state;
 
             this.form = this.fb.group({
-              id:[this._inscripcionesService.maxId(this._inscripcionesService.getInscripciones())+1],
+              // id:[this._inscripcionesService.maxId(this._inscripcionesService.getInscripciones())+1],
               id_estudiante:[""],
               id_curso:[""],
               estudiante:  ["",  [Validators.required, Validators.maxLength(40)]],

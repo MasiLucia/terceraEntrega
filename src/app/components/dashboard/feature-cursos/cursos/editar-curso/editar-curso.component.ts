@@ -2,7 +2,6 @@ import { Cursos } from 'src/app/shared/interfaces/cursos';
 import { CursosService } from '../services/cursos.service';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Estudiantes } from 'src/app/shared/interfaces/estudiantes';
 import { CrearCursoComponent } from '../crear-curso/crear-curso.component';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
@@ -33,7 +32,7 @@ export class EditarCursoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.inicializar(this.data);
+    // this.inicializar(this.data);
 
   }
 
@@ -44,7 +43,7 @@ export class EditarCursoComponent implements OnInit {
 
   editEstudiante(form:any){
     const formCursos: Cursos={
-      id: this.data.id,
+      idCurso: this.data.idCurso,
       cursoNombre: this.form.value.cursoNombre,
       cursoDias: this.form.value.cursoDias,
       precio: this.form.value.precio,
@@ -53,37 +52,37 @@ export class EditarCursoComponent implements OnInit {
 
     }
 
-    this._cursosService.editarCursos(formCursos);
-      this.router.navigate(['/dashboard/cursos']);
-      this._snackBar.open('Estudiante editado exitosamente','', {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-        duration: 1500,
-      })
-      this.dialogRef.close();
-      this.form.reset();
-    }
-volver(){
-  this.dialogRef.close();
-}
+//     this._cursosService.editarCursos(formCursos);
+//       this.router.navigate(['/dashboard/cursos']);
+//       this._snackBar.open('Estudiante editado exitosamente','', {
+//         horizontalPosition: 'center',
+//         verticalPosition: 'top',
+//         duration: 1500,
+//       })
+//       this.dialogRef.close();
+//       this.form.reset();
+//     }
+// volver(){
+//   this.dialogRef.close();
+// }
 
-inicializar(curso:Cursos) {
+// inicializar(curso:Cursos) {
 
-  this.form = this.fb.group({
-    cursoNombre:  ["",  [Validators.required, Validators.maxLength(40), ]],
-    cursoDias:  ["",  [Validators.required]],
-    precio: ["",  [Validators.required]],
-    profesor: ["",  [Validators.required]],
-    detalle: ["",  [Validators.required]],
+//   this.form = this.fb.group({
+//     cursoNombre:  ["",  [Validators.required, Validators.maxLength(40), ]],
+//     cursoDias:  ["",  [Validators.required]],
+//     precio: ["",  [Validators.required]],
+//     profesor: ["",  [Validators.required]],
+//     detalle: ["",  [Validators.required]],
 
-    })
-  console.log(this.form);
-  this.form.get('cursoNombre')?.patchValue(curso.cursoNombre);
-  this.form.get('cursoDias')?.patchValue(curso.cursoDias);
-  this.form.get('precio')?.patchValue(curso.precio);
-  this.form.get('profesor')?.patchValue(curso.profesor);
-  this.form.get('detalle')?.patchValue(curso.detalle);
+//     })
+//   console.log(this.form);
+//   this.form.get('cursoNombre')?.patchValue(curso.cursoNombre);
+//   this.form.get('cursoDias')?.patchValue(curso.cursoDias);
+//   this.form.get('precio')?.patchValue(curso.precio);
+//   this.form.get('profesor')?.patchValue(curso.profesor);
+//   this.form.get('detalle')?.patchValue(curso.detalle);
 
-}
+// }
 
-}
+}}

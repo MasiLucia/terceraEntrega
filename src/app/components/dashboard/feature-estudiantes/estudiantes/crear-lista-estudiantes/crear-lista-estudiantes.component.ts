@@ -5,7 +5,6 @@ import {
   Router
 } from '@angular/router';
 import {
-  Estudiantes,
   EstudiantesLista
 } from 'src/app/shared/interfaces/estudiantes';
 import {
@@ -60,7 +59,7 @@ export class CrearListaEstudiantesComponent implements OnInit {
 
   guardar() {
     const estudiante: EstudiantesLista = {
-      id: this.form.value.id,
+      idEstudiante: this.form.value.idEstudiante,
       nombre: this.form.value.nombre,
       apellido: this.form.value.apellido,
       edad: this.form.value.edad,
@@ -76,7 +75,7 @@ export class CrearListaEstudiantesComponent implements OnInit {
       verticalPosition: 'top',
       duration: 1500,
     })
-    // this.form.reset()
+     this.form.reset()
 
   }
   volver() {

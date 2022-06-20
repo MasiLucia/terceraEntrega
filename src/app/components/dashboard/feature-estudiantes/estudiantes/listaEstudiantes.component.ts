@@ -137,12 +137,12 @@ export class ListaEstudiantesComponent implements OnInit {
     height: '600px',
     panelClass: 'makeItMiddle',
     data: {
-      id: estudiante.id,
+      idEstudiante: estudiante.idEstudiante,
       nombre: estudiante.nombre,
       apellido: estudiante.apellido,
       edad: estudiante.edad,
       correo:estudiante.correo,
-      telefono: estudiante.telefono,
+      telefono: estudiante.telefono
     },
   });
 
@@ -156,7 +156,7 @@ export class ListaEstudiantesComponent implements OnInit {
       width: '1000px',
       panelClass: 'makeItMiddle',
       data: {
-        id: estudiante.id,
+        idEstudiante: estudiante.idEstudiante,
         nombre: estudiante.nombre,
         apellido: estudiante.apellido,
         edad: estudiante.edad,
@@ -185,16 +185,16 @@ export class ListaEstudiantesComponent implements OnInit {
   // }
 
 
-getEstudianteDetails(id:number){
-  this._estudiantesListaService.getSingleStudent(id).subscribe(
+getEstudianteDetails(idEstudiante:number){
+  this._estudiantesListaService.getSingleStudent(idEstudiante).subscribe(
     (data)=>{
       console.log(data)
     }
   )
 }
 
-deleteEstudiante(id:number){
-  this._estudiantesListaService.deleteEstudiante(id).subscribe(
+deleteEstudiante(idEstudiante:number){
+  this._estudiantesListaService.deleteEstudiante(idEstudiante).subscribe(
     (data)=> {
       this.getEstudiantes();
     }

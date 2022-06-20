@@ -1,56 +1,4 @@
    <div class="container  bg-div">
-<!--
-   <h1 class="al">Estudiantes</h1>
-
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <div class="card">
-           <div class="card-body">
-             <div class="table-responsive">
-               <table class="table table-bordered table-striped table-hover">
-                 <thead>
-                   <tr>
-                     <th>Id</th>
-                     <th>Nombre</th>
-                     <th>Apellido</th>
-                     <th>Email</th>
-                     <th>Telefono</th>
-                     <th>Acciones</th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   <tr *ngFor="let alumno of lista">
-                     <td>{{alumno.id}}</td>
-                     <td>{{alumno.nombre}}</td>
-                     <td>{{alumno.apellido}}</td>
-                     <td>{{alumno.correo}}</td>
-                     <td>{{alumno.telefono}}</td>
-                     <td>
-                       <!- - <button class="btn btn-primary" *ngIf="admin" mat-raised-button color="primary"
-                        routerLink="/dashboard/editar-alumno/{{alumno.id}}">Editar</button>
-                      <button class="btn btn-danger" *ngIf="admin" mat-raised-button color="primary"
-                        routerLink="/dashboard/eliminar-alumno/{{alumno.id}}">Eliminar</button>
-                        <button class="btn btn-danger" *ngIf="admin" mat-raised-button color="primary"
-                        routerLink="/dashboard/eliminar-alumno/{{alumno.id}}">Ver Detalles</button> -- >
-
-                       <div class="d-flex justify-content-around">
-                         <a class="pointer mx-3"  (click)="openDialogEditar(element)" matTooltip="Ver Detalle" style="color: #18b031">
-                           <mat-icon>search</mat-icon>
-                         </a>
-
-                         <a *ngIf="authService.isAdmin" class="pointer mx-3" matTooltip="Editar Datos" style="color: #1c89c9">
-                           <mat-icon>edit</mat-icon>
-                         </a>
-                         <a *ngIf="admin" class="pointer mx-3" matTooltip="Eliminar Alumno"
-                           style="color: rgb(170, 24, 24)">
-                           <mat-icon>delete</mat-icon>
-                         </a>
-                       </div>
-                     </td>
-                   </tr>
-                 </tbody> -->
-
   <button class="agregar" *ngIf="admin" mat-raised-button color="primary" routerLink="/dashboard/crear-estudiante">+Agregar
     Estudiante</button>
   <mat-form-field class="al" >
@@ -95,7 +43,7 @@
               style="color: #1c89c9">
               <mat-icon>edit</mat-icon>
             </a>
-            <a *ngIf="admin" class="pointer mx-3" (click)="deleteEstudiante(element.id)"  matTooltip="Eliminar Alumno"
+            <a *ngIf="admin" class="pointer mx-3" (click)="deleteEstudiante(element.idEstudiante)"  matTooltip="Eliminar Alumno"
               style="color: rgb(170, 24, 24)">
               <mat-icon>delete</mat-icon>
             </a>
@@ -109,9 +57,5 @@
       <mat-paginator class="bg-tabla text-white fs-5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="selccione pagina">
       </mat-paginator>
      </div>
-     <h2>No existen registros para mostrar</h2>
+     <h2 *ngIf="lista.length < 0">No existen registros para mostrar</h2>
   </div>
-
-<ul>
-  <li *ngFor="let estudiante of lista">  {{estudiante.nombre}} {{estudiante.apellido}} </li>
-</ul>

@@ -3,28 +3,28 @@
   <h1 appTwenty class="al">Detalles del alumno</h1>
   <mat-card class="mt-4">
     <div class="card" role="list">
-      <h5 class="card-header" role="listitem">{{form.value.estudiante}}</h5>
+      <h5 class="card-header" role="listitem">{{data.nombre}}</h5>
       <div class="card-body">
-        <h5 class="card-title" role="listitem">Mail: {{form.value.correo}}</h5>
+        <h5 class="card-title" role="listitem">Mail: {{data.correo}}</h5>
         <p class="card-text" role="listitem">
-          <mat-list-item role="listitem">Edad: {{form.value.edad}}</mat-list-item>
+          <mat-list-item role="listitem">Edad: {{data.edad}}</mat-list-item>
         </p>
         <p>
-          <mat-list-item role="listitem">Tel: {{form.value.telefono}} </mat-list-item>
+          <mat-list-item role="listitem">Tel: {{data.telefono}} </mat-list-item>
         </p>
-       
+
         <div>
-          
+
         </div>
         <p>
         <mat-list-item role="listitem">Cursos:
-         
-             <tr *ngFor="let curso of cursitos; let i = index">
-                <td>{{curso.cursoNombre}}</td>
-             </tr>
-         
 
-         
+              <!-- <tr *ngFor="let curso of cursitos; let i = index">
+                 <td>{{data.cursoNombre}}</td>
+             </tr> -->
+
+
+
          </mat-list-item>
         </p>
         <a (click)="cerrar()" class="btn btn-primary">Cerrar</a>

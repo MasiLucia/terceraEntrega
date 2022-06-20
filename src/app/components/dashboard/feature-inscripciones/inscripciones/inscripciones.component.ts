@@ -22,12 +22,12 @@ export class InscripcionesComponent implements OnInit {
 
   datosUsuario: string;
 
-  listaInscripciones: Inscripciones[] = [];
+  listaInscripciones: Inscripciones[];
 
   admin: boolean = false;
 
 
-  displayedColumns: string[] = ['nombre', 'curso', 'dias', 'acciones'];
+  displayedColumns: string[] = ['idInscripcion', 'idEstudiante', 'idCurso', 'acciones'];
 
   dataSource = new MatTableDataSource<any>();
 
@@ -44,98 +44,70 @@ export class InscripcionesComponent implements OnInit {
      )  { }
 
   ngOnInit(): void {
-
-    this.loadView();
+    this.getInscripciones();
+    // this.loadView();
   }
 
-  validaRol(){
-    this.datosUsuario = JSON.stringify(localStorage.getItem('rol'));
-    console.log(this.datosUsuario);
+  getInscripciones() {
+    this._inscripcionesService.getInscripcionesList().subscribe(
+      (data)=> {
+       this.listaInscripciones= data;
 
-    if(localStorage.getItem('rol') === 'admin')
-    {
-      console.log("ES ADMIN")
-      this.admin=true;
-
-    }
-    else{
-    this.admin=false;
-    console.log("ES USER")
-    }
-  }
-  loadView(){
-    this.cargarInscripciones();
-    this.validaRol()
-  }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort
-  }
-  cargarInscripciones(){
-    this.listaInscripciones = this._inscripcionesService.getInscripciones();
-    this.dataSource = new MatTableDataSource(this.listaInscripciones);
-    this.ngAfterViewInit();
+       console.log("data");
+       console.log(this.listaInscripciones);
+      })
   }
 
-  eliminarInscripciones(index: number){
-    console.log(index);
-    this._inscripcionesService.eliminarInscripciones(index);
-    this.cargarInscripciones();
-    this._snackBar.open('Estudiante eliminado con exito','', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      duration: 1500,
-    })
-  }
 
-  openDialog2(id_delform:number): void{
-    const estudiante = this._inscripcionesService.getInscripciones().find(c => c.id === id_delform);
-    const dialogRef = this.dialog.open(DetalleInscripcionesComponent, {
-      data: estudiante,
-      width: '1250px',
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
-      this.cargarInscripciones();
-    });
-  }
+  openDialog2(inscripcion: Inscripciones) {
+  const dialogRef = this.dialog.open(DetalleInscripcionesComponent, {
+    width: '600px',
+    height: '600px',
+    panelClass: 'makeItMiddle',
+    data: {
+      idInscripcion: inscripcion.idEstudiante,
+      idEstudiante: inscripcion.idEstudiante,
+      idCurso:inscripcion.idCurso,
 
-  editarInscripcion(id:number){
-    this._snackBar.open('Registro de estudiante editado','', {
-     horizontalPosition: 'center',
-     verticalPosition: 'top',
-     duration: 1500,
- })
-}
-
-
- ingresarAdmin(){
-  console.log("ACTIVANDO EL ADMIN")
-   this.admin = true;
- }
- ingresarUsuario(){
-   this.admin = false;
- }
-
-
- openDialog(id_delform:number): void {
-  const estudiante = this._inscripcionesService.getInscripciones().find(c => c.id === id_delform);
-  const dialogRef = this.dialog.open(EditarEstudianteComponent, {
-    data: estudiante,
-    width: '1250px',
-
+    },
   });
 
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed');
-    console.log(result);
-    this.cargarInscripciones();
+  dialogRef.afterClosed().subscribe((result: any) => {
+    this.router.navigate(['dashboard/estudiantes']);
   });
 }
 
+  openDialog(inscripcion: Inscripciones) {
+    const dialogRef = this.dialog.open(EditarEstudianteComponent, {
+      width: '1000px',
+      panelClass: 'makeItMiddle',
+      data: {
+        idInscripcion: inscripcion.idEstudiante,
+        idEstudiante: inscripcion.idEstudiante,
+        idCurso:inscripcion.idCurso,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      this._inscripcionesService.updateInscripcionSer(result).subscribe(() => {
+        // this.store.dispatch(cargarAlumnos());
+      });
+    });
+  }
+
+getInscripcionDetails(idInscripcion:number){
+  this._inscripcionesService.getSingleInscripcion(idInscripcion).subscribe(
+    (data)=>{
+      console.log(data)
+    }
+  )
+}
+
+deleteInscripcion(idInscripcion:number){
+  this._inscripcionesService.deleteInscripcion(idInscripcion).subscribe(
+    (data)=> {
+      this.getInscripciones();
+    }
+  )
+}
 }

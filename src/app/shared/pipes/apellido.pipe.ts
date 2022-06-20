@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, Pipe, PipeTransform } from '@angular/core';
 // import { EstudiantesComponent } from '../../components/dashboard/feature-inscripciones/estudiantes/estudiantes.component';
-import { Estudiantes } from '../interfaces/estudiantes';
 import { ListaEstudiantesComponent } from 'src/app/components/dashboard/feature-estudiantes/estudiantes/listaEstudiantes.component';
+import { EstudiantesLista } from '../interfaces/estudiantes';
 
 
 @Pipe({
@@ -10,7 +10,7 @@ import { ListaEstudiantesComponent } from 'src/app/components/dashboard/feature-
 })
 export class ApellidoPipe implements PipeTransform {
 
-  transform(value: Estudiantes){
+  transform(value: EstudiantesLista){
     return value.apellido;
   }
 

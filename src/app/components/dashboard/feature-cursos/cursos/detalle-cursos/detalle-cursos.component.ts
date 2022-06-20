@@ -44,7 +44,7 @@ export class DetalleCursosComponent implements OnInit {
     this.dialogRef.close();
 }
 
-  onNoClick(): void {
+  onNoClick(){
     this.dialogRef.close();
   }
 

@@ -3,7 +3,6 @@ import { InscripcionesService } from '../services/inscripciones.service';
 
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Estudiantes } from 'src/app/shared/interfaces/estudiantes';
 import { CrearInscripcionComponent} from '../crear-inscripcion/crear-inscripcion.component';
 
 import { Router } from '@angular/router';
@@ -47,33 +46,8 @@ export class EditarInscripcionComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  editEstudiante(form:any){
-    const formInscripciones: Inscripciones={
-      id: this.data.id,
-      id_estudiante:1,
-      id_curso:1,
-      nombre: this.form.value.estudiante,
-      apellido: this.data.apellido,
-      curso: this.form.value.curso,
-      dias: this.form.value.dias,
 
-    }
-
-    this._inscripcionesService.editarInscripciones(formInscripciones);
-      this.router.navigate(['/dashboard/inscripciones']);
-      this._snackBar.open('Estudiante editado exitosamente','', {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-        duration: 1500,
-      })
-      this.dialogRef.close();
-      this.form.reset();
-    }
-volver(){
-  this.dialogRef.close();
-}
-
-inicializar(estudiante:Inscripciones) {
+inicializar(inscripcion:Inscripciones) {
 
   this.form = this.fb.group({
     estudiante:  ["",  [Validators.required, Validators.maxLength(40), ]],
@@ -82,9 +56,39 @@ inicializar(estudiante:Inscripciones) {
 
     })
   console.log(this.form);
-  this.form.get('estudiante')?.patchValue(estudiante.nombre);
-  this.form.get('curso')?.patchValue(estudiante.curso);
-  this.form.get('dias')?.patchValue(estudiante.dias);
+  this.form.get('idInscripcion)')?.patchValue(inscripcion.idInscripcion);
+  this.form.get('idEstudiante')?.patchValue(inscripcion.idEstudiante);
+  this.form.get('idCurso')?.patchValue(inscripcion.idCurso);
+
+}
+
+
+updateEstudiante(inscripcionForm: FormGroup){
+  var inscripcionToUpdate: Inscripciones={
+
+      idInscripcion: inscripcionForm.value.idInscripcion,
+      idEstudiante: inscripcionForm.value.idEstudiante,
+      idCurso: inscripcionForm.value.idCurso,
+      }
+
+
+  this._inscripcionesService.updateInscripcionSer(inscripcionToUpdate)
+  this._inscripcionesService.getInscripcionesList();
+
+    this.router.navigate(['/dashboard/estudiantes']);
+    this._snackBar.open('Estudiante editado exitosamente','', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 1500,
+    })
+    this.dialogRef.close();
+
+}
+
+volver(){
+    this.router.navigate(['/dashboard/estudiantes']);
+    this.dialogRef.close();
+    console.log(this.form.value);
 
 }
 }
