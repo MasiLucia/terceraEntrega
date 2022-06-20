@@ -45,7 +45,6 @@ export class InscripcionesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getInscripciones();
-    // this.loadView();
   }
 
   getInscripciones() {

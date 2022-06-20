@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class CursosService {
 
-  listaCursos = 'https://62af7944b0a980a2ef40b08d.mockapi.io/campus/v1/cursos'
+  listaCursos = 'https://62af7944b0a980a2ef40b08d.mockapi.io/campus/v1/cursos/'
 
   constructor(private http: HttpClient) { }
 

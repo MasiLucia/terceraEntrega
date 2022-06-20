@@ -38,7 +38,7 @@ export class AuthService {
 
 
 
-  
+
   constructor(private http: HttpClient, private ruta: Router) {
     var values = JSON.parse(localStorage.getItem('session') || 'false');
     if (values.usuario !== undefined) {
@@ -54,7 +54,7 @@ export class AuthService {
 
   IniciarSesion(usuario: string, contrasena: string): Observable<Usuario> {
     return this.http
-      .get<Usuario[]>("https://626333a9c430dc560d2cad4e.mockapi.io/Usuarios")
+      .get<Usuario[]>("https://62af7944b0a980a2ef40b08d.mockapi.io/campus/v1/usuarios")
       .pipe(
         map((usuarios: Usuario[]) => {
           return usuarios.filter(

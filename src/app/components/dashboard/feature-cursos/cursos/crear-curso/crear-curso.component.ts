@@ -51,7 +51,7 @@ export class CrearCursoComponent implements OnInit {
     }
 
     this._cursosService.createCurso(curso);
-    this.router.navigate(['/dashboard/estudiantes']);
+    this.router.navigate(['/dashboard/cursos']);
     this._snackBar.open('Curso agregado exitosamente', '', {
       horizontalPosition: 'center',
       verticalPosition: 'top',

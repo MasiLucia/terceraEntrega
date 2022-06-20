@@ -36,12 +36,12 @@ export class CrearInscripcionComponent implements OnInit {
                  this.value = navigation?.extras?.state;
 
             this.form = this.fb.group({
-              // id:[this._inscripcionesService.maxId(this._inscripcionesService.getInscripciones())+1],
-              id_estudiante:[""],
-              id_curso:[""],
-              estudiante:  ["",  [Validators.required, Validators.maxLength(40)]],
-              curso:  ["",  [Validators.required]],
-              dias: ["",  [Validators.required]],
+              idInscripcion:[this._inscripcionesService.maxId(this._inscripcionesService.getInscripcionesList())+1],
+              idEstudiante:[""],
+              idCurso:[""],
+              // estudiante:  ["",  [Validators.required, Validators.maxLength(40)]],
+              // curso:  ["",  [Validators.required]],
+              // dias: ["",  [Validators.required]],
 
             });
    }

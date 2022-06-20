@@ -6,6 +6,7 @@ import { CursosService } from '../../feature-cursos/cursos/services/cursos.servi
 import { Cursos } from 'src/app/shared/interfaces/cursos';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
 
 
 @Injectable({
@@ -13,11 +14,11 @@ import { Observable } from 'rxjs';
 })
 export class InscripcionesService {
 
-  listaInscripciones = 'https://62af7944b0a980a2ef40b08d.mockapi.io/campus/v1/inscripciones'
+  listaInscripciones = 'https://62af7944b0a980a2ef40b08d.mockapi.io/campus/v1/inscripciones/'
 
   cursito:Cursos;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cursosService: CursosService) { }
 
   getInscripcionesList(): Observable<Inscripciones[]>
   {
@@ -63,6 +64,30 @@ updateInscripcionSer(inscripcion: Inscripciones): Observable<Inscripciones> {
 
 
 
+}
+
+
+
+maxId(inscripciones:Inscripciones[]){
+  return Math.max.apply(null,
+    inscripciones.map(function(inscripcion) { return inscripcion.idInscripcion; }));
+}
+
+
+misCursos(id_estudiante:number){
+  let miscursos:Observable<Cursos>;
+
+     for(let i = 0; i < this.listaInscripciones.length; i++){
+       if(this.listaInscripciones[i].idEstudiante===id_estudiante){
+
+         this.cursito=this.cursosService.getCursosList(this.maxId).subscribe((response:Cursos) => {
+          this.cursito = response;
+      });
+         console.log(this.cursito);
+           miscursos.push(this.cursito);
+         }
+}
+  return miscursos;
 }
 
 
