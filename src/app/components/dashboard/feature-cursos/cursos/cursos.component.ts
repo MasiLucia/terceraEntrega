@@ -23,7 +23,7 @@ export class CursosComponent implements OnInit {
   datosUsuario: string;
 
   listaCursos: Cursos[];
-
+    listaaux: Cursos[];
   admin: boolean = false;
 
 
@@ -144,8 +144,9 @@ getCursos() {
   this._cursosService.getCursosList().subscribe(
     (data)=> {
      this.listaCursos= data;
-
-     console.log("data");
+     this.listaaux=data
+     localStorage.setItem('cursos', JSON.stringify(this.listaaux));
+     console.log("data de cursoslocal");
      console.log(this.listaCursos);
     })
 }

@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CursosService } from '../../../feature-cursos/cursos/services/cursos.service';
 import { Cursos } from 'src/app/shared/interfaces/cursos';
 import { InscripcionesService } from '../../../feature-inscripciones/services/inscripciones.service';
+import { Observable, Subscription } from 'rxjs';
+import { Inscripciones } from 'src/app/shared/interfaces/inscripciones';
 
 
 @Component({
@@ -19,6 +21,17 @@ export class DetalleComponent implements OnInit {
   value: any = null;
   form: FormGroup;
   cursitos:Cursos[]=[];
+
+  dataSource: any;
+  usuario: any;
+
+  displayedColumns: string[] = ['cursoNombre'];
+
+  alumnSubscription!: Subscription;
+
+  detalleDeCursos$!: Observable<Inscripciones[]>;
+  store: any;
+
   constructor(
     public dialogRef: MatDialogRef<CrearListaEstudiantesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EstudiantesLista,
@@ -32,25 +45,25 @@ export class DetalleComponent implements OnInit {
 
   ngOnInit(): void {
     this.cursitos=[];
-    this.inicializar(this.data);
+    // this.inicializar(this.data);
     console.log("cursos");
     console.log(this.cursitos);
   }
 
-  inicializar(estudiante:EstudiantesLista) {
-    this.cursitos=this.inscripcionesService.misCursos(estudiante.idEstudiante)
-    this.form = this.fb.group({
-      idEstudiante:  estudiante.nombre + " " + estudiante.apellido,
-      edad:  estudiante.edad,
-      correo: estudiante.correo,
-      telefono:  estudiante.telefono,
-      cursos: this.cursitos,
-    })
-  }
+//   inicializar(estudiante:EstudiantesLista) {
+//     this.cursitos=this.inscripcionesService.misCursos(estudiante.idEstudiante)
+//     this.form = this.fb.group({
+//       idEstudiante:  estudiante.nombre + " " + estudiante.apellido,
+//       edad:  estudiante.edad,
+//       correo: estudiante.correo,
+//       telefono:  estudiante.telefono,
+//       cursos: this.cursitos,
+//     })
+//   }
 
-  cerrar(){
-    this.dialogRef.close();
-}
+//   cerrar(){
+//     this.dialogRef.close();
+// }
 
   onNoClick(): void {
     this.dialogRef.close();

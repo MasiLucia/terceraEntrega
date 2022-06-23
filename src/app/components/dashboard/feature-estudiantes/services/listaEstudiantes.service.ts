@@ -1,7 +1,7 @@
 import { EstudiantesLista } from 'src/app/shared/interfaces/estudiantes';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable, Subject } from 'rxjs';
 
 
 @Injectable({
@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 
 export class ListaEstudiantesService {
 
+  estudiantesList = []
   // ListaEstudiantes=  [
   //   {id:1,nombre: "Juan Carlos",apellido:"Martinez", edad:25,telefono:115512215, correo: 'algo@ejemplo'},
   //   {id:2,nombre: "Juan",apellido:"Gomez",edad: 30, telefono: 561654215, correo: 'algo@ejemplo'},
@@ -28,10 +29,13 @@ export class ListaEstudiantesService {
 
   constructor(private http: HttpClient) { }
 
+  alumnoSubject = new Subject<any>();
+
 
   getEstudiantesList(): Observable<EstudiantesLista[]>
   {
     return this.http.get<EstudiantesLista[]>(this.listaEstudiantes)
+
   }
 
   // agregarEstudiante(estudiante: EstudiantesLista): Observable<EstudiantesLista>{
@@ -63,12 +67,10 @@ export class ListaEstudiantesService {
   // }
 
 
-getSingleStudent(idEstudiante:number): Observable<EstudiantesLista> {
-  var response: any;
-  response  = this.http.get<EstudiantesLista>(this.listaEstudiantes + idEstudiante ).subscribe(data => {
-   return data;
-   })
- return response;
+getSingleStudent(idEstudiante:any): Observable<EstudiantesLista> {
+  console.log("desde el single studnetn");
+  console.log(idEstudiante);
+return this.http.get<EstudiantesLista>(this.listaEstudiantes + idEstudiante) ;
 
 }
 

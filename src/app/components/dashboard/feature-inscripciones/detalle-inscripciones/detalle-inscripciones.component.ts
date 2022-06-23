@@ -27,26 +27,25 @@ export class DetalleInscripcionesComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    // this.inicializar(this.data);
+    this.inicializar(this.data);
   }
 
-//   inicializar(estudiante:Inscripciones) {
+  inicializar(estudiante:Inscripciones) {
 
-//     this.form = this.fb.group({
-//       estudiante:  estudiante.nombre,
-//      curso:  estudiante.curso,
-//       dias: estudiante.dias,
+    this.form = this.fb.group({
+     idInscripcion:  estudiante.idInscripcion,
+     idCurso:  estudiante.idCurso
 
-//     })
-//   }
-
-
-//   cerrar(){
-
-//     this.dialogRef.close();
+    })
+  }
 
 
-// }
+  cerrar(){
+
+    this.dialogRef.close();
+
+
+}
 
   onNoClick(): void {
     this.dialogRef.close();

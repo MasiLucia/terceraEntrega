@@ -8,6 +8,9 @@ import { CrearInscripcionComponent} from '../crear-inscripcion/crear-inscripcion
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable, Subscription } from 'rxjs';
+import { CursosService } from '../../feature-cursos/cursos/services/cursos.service';
+import { ListaEstudiantesService } from '../../feature-estudiantes/services/listaEstudiantes.service';
 
 
 @Component({
@@ -19,17 +22,32 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 export class EditarInscripcionComponent implements OnInit {
 
+  cursos: any = this._icursoService.getCursosList();
+  estudiantes: any =this._estudiantesService.getEstudiantesList().subscribe(res => {
+  return res;  });
 
-  cursos:any[]= ['react', 'angular', 'vue', 'react y angular', 'react y vue', 'angular y vue'];
-  dias: any[] = ['lunes y miercoles', 'martes y jueves', 'sabado', 'miercoles y viernes'];
-  form: FormGroup;
-  value: any = null;
+
+ alumnoSubscription!: Subscription;
+ datosAlumnos$!: Observable<any>;
+
+ datosSubscription!: Subscription;
+ datosCursos$!: Observable<any>;
+
+
+ form!: FormGroup;
+ value: any = null;
+
+  // cursos:any[]= ['react', 'angular', 'vue', 'react y angular', 'react y vue', 'angular y vue'];
+  // dias: any[] = ['lunes y miercoles', 'martes y jueves', 'sabado', 'miercoles y viernes'];
+  nombre: any[];
 
   constructor (public dialogRef: MatDialogRef<CrearInscripcionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Inscripciones,  private fb : FormBuilder,
     private _inscripcionesService: InscripcionesService,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _icursoService: CursosService,
+    private _estudiantesService: ListaEstudiantesService
   ){
       const navigation = this.router.getCurrentNavigation();
       this.value = navigation?.extras?.state;
@@ -38,6 +56,16 @@ export class EditarInscripcionComponent implements OnInit {
 
   ngOnInit(): void {
    this.inicializar(this.data);
+   this.datosAlumnos$ = this._estudiantesService.getEstudiantesList();
+   this.alumnoSubscription = this._estudiantesService.alumnoSubject.subscribe(
+     () => {
+       this.datosAlumnos$ = this._estudiantesService.getEstudiantesList();
+     }
+   );
+   this.datosCursos$ = this._icursoService.getCursosList();
+   this.alumnoSubscription = this._icursoService.cursoSubject.subscribe(() => {
+     this.datosCursos$ = this._icursoService.getCursosList();
+   });
 
   }
 
@@ -50,32 +78,30 @@ export class EditarInscripcionComponent implements OnInit {
 inicializar(inscripcion:Inscripciones) {
 
   this.form = this.fb.group({
-    estudiante:  ["",  [Validators.required, Validators.maxLength(40), ]],
+    nombre:  ["",  [Validators.required, Validators.maxLength(40), ]],
     curso:  ["",  [Validators.required]],
-    dias: ["",  [Validators.required]],
 
     })
   console.log(this.form);
-  this.form.get('idInscripcion)')?.patchValue(inscripcion.idInscripcion);
-  this.form.get('idEstudiante')?.patchValue(inscripcion.idEstudiante);
-  this.form.get('idCurso')?.patchValue(inscripcion.idCurso);
+  // this.form.get('id')?.setValue(inscripcion.nombre);
+  // this.form.get('curso')?.setValue(inscripcion.curso);
 
 }
 
 
 updateEstudiante(inscripcionForm: FormGroup){
+  console.log("estoy en inscripcionform")
+  console.log(inscripcionForm)
   var inscripcionToUpdate: Inscripciones={
-
-      idInscripcion: inscripcionForm.value.idInscripcion,
-      idEstudiante: inscripcionForm.value.idEstudiante,
-      idCurso: inscripcionForm.value.idCurso,
+    idInscripcion: inscripcionForm.value.idInscripcion,
+    idEstudiante: inscripcionForm.value.idEstudiante,
+    idCurso: inscripcionForm.value.idCurso
       }
-
 
   this._inscripcionesService.updateInscripcionSer(inscripcionToUpdate)
   this._inscripcionesService.getInscripcionesList();
 
-    this.router.navigate(['/dashboard/estudiantes']);
+    this.router.navigate(['/dashboard/inscripciones']);
     this._snackBar.open('Estudiante editado exitosamente','', {
       horizontalPosition: 'center',
       verticalPosition: 'top',

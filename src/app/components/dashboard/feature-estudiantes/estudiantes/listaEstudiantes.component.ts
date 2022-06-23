@@ -14,6 +14,7 @@ import { DetalleComponent } from '../estudiantes/detalle/detalle.component';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 import { EstudiantesService } from 'src/app/services/estudiantes.service';
+import { InscripcionesService } from '../../feature-inscripciones/services/inscripciones.service';
 
 
 @Component({
@@ -21,9 +22,11 @@ import { EstudiantesService } from 'src/app/services/estudiantes.service';
   templateUrl: './listaEstudiantes.component.html',
   styleUrls: ['./listaEstudiantes.component.scss']
 })
+
+
 export class ListaEstudiantesComponent implements OnInit {
 
-
+  listaux: EstudiantesLista[];
   lista : EstudiantesLista[];
 
    admin:boolean = true;
@@ -52,7 +55,7 @@ export class ListaEstudiantesComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private router: Router,
     public dialog: MatDialog,
-
+    private inscripcionesService: InscripcionesService
     ) {}
 
 
@@ -68,7 +71,11 @@ export class ListaEstudiantesComponent implements OnInit {
       (data)=> {
        this.lista= data;
 
-       console.log("data");
+       this.listaux=data
+      localStorage.setItem('estudiantes', JSON.stringify(this.listaux));
+
+
+       console.log("Estudiantes localstorage");
        console.log(this.lista);
       })
   }
@@ -142,7 +149,8 @@ export class ListaEstudiantesComponent implements OnInit {
       apellido: estudiante.apellido,
       edad: estudiante.edad,
       correo:estudiante.correo,
-      telefono: estudiante.telefono
+      telefono: estudiante.telefono,
+      // cursos: this.inscripcionesService.getInscripcionesList()
     },
   });
 

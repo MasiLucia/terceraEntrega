@@ -27,6 +27,8 @@ import { CrearListaEstudiantesComponent } from './feature-estudiantes/estudiante
 import { DetalleCursosComponent } from './feature-cursos/cursos/detalle-cursos/detalle-cursos.component';
 import { ApellidoPipeModule } from 'src/app/shared/pipes/apellido.pipe';
 import { HttpClientModule } from '@angular/common/http';
+import { NombreCursoPipeModule } from 'src/app/shared/pipes/nombre-curso.pipe';
+import { NombreEstudiantePipe, NombreEstudiantePipeModule } from 'src/app/shared/pipes/nombre-estudiante.pipe';
 
 
 
@@ -50,6 +52,7 @@ import { HttpClientModule } from '@angular/common/http';
     CrearInscripcionComponent,
     EditarEstudianteComponent,
 
+
     ],
   imports: [
     CommonModule,
@@ -61,16 +64,20 @@ import { HttpClientModule } from '@angular/common/http';
     FeatureCursosModule,
     FeatureEstudiantesModule,
     ApellidoPipeModule,
-    HttpClientModule
+    HttpClientModule,
+    NombreCursoPipeModule,
+    NombreEstudiantePipeModule
+
+
     ], exports: [
     MaterialModule,
     FeatureInscripcionesModule,
     FeatureCursosModule,
     FeatureEstudiantesModule,
     ApellidoPipeModule,
-    HttpClientModule
-
-
+    HttpClientModule,
+    NombreCursoPipeModule,
+    NombreEstudiantePipeModule
   ]
 
 

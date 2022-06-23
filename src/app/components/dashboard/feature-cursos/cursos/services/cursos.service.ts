@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { InscripcionesService } from '../../../feature-inscripciones/services/inscripciones.service';
 import { Inscripciones } from 'src/app/shared/interfaces/inscripciones';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class CursosService {
   listaCursos = 'https://62af7944b0a980a2ef40b08d.mockapi.io/campus/v1/cursos/'
 
   constructor(private http: HttpClient) { }
-
+  cursoSubject = new Subject<any>();
 
   getCursosList(): Observable<Cursos[]>
   {
@@ -24,18 +24,14 @@ export class CursosService {
   }
 
 
-getSingleCurso(idCurso:number): Observable<Cursos> {
-  var response: any;
-  response  = this.http.get<Cursos>(this.listaCursos + idCurso ).subscribe(data => {
-   return data;
-   })
- return response;
+getSingleCurso(idCurso:any): Observable<any> {
+  return this.http.get<Cursos>(this.listaCursos + idCurso );
 
 }
 
 
 
-createCurso(curso: Cursos):Observable<Cursos> {
+createCurso(curso: Cursos):Observable<any>  {
   var response: any;
    response  = this.http.post<Cursos>(this.listaCursos, curso).subscribe(data => {
     return data;
@@ -45,12 +41,12 @@ createCurso(curso: Cursos):Observable<Cursos> {
 
 }
 
-deleteCurso(idCurso: number): Observable<Cursos> {
+deleteCurso(idCurso: number): Observable<any>  {
   return this.http.delete<Cursos>(this.listaCursos + idCurso);
 }
 
 
-updateCursoSer(curso: Cursos): Observable<Cursos> {
+updateCursoSer(curso: Cursos): Observable<any> {
 
   var response: any;
   console.log("data")

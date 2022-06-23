@@ -80,36 +80,9 @@ export class CrearListaEstudiantesComponent implements OnInit {
   }
   volver() {
     this.router.navigate(['/dashboard/estudiantes']);
-    console.log(this.form.value);}
+    console.log(this.form.value);
   }
 
-  // saveUser() {
-  // this.dataSvc.saveUser({id: 1234, first_name: 'Homero', last_name:
-  // 'Simpson', age: 36, avatar: '',}).subscribe((data) => {
-  // console.log('Created a employee');
-  // });
-  // }
-
-  // reiniciarFormulario() {
-  // this.formularioAlumno.reset();
-  // this.massage = null;
-  // this.dataSaved = false;
-  // }
-
-  // GuardarAlumno() {
-  // this.dataSaved = true;
-  // const formalum = this.formularioAlumno.value;
-
-  // this._alumnosService.agregarAlumnos(formalum).subscribe((resp: any) => {
-  // this.store.dispatch(cargarAlumnos());
-  // setTimeout(() => {
-  // this.dataSaved = false;
-  // this.reiniciarFormulario();
-  // }, 300);
-
-  // return;
-  // });
-  // return;
-  // }
 
 
+}
