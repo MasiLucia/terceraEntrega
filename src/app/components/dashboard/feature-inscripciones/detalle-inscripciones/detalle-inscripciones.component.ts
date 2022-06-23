@@ -34,8 +34,8 @@ export class DetalleInscripcionesComponent implements OnInit {
 
     this.form = this.fb.group({
      idInscripcion:  estudiante.idInscripcion,
-     idCurso:  estudiante.idCurso
-
+     idCurso:  estudiante.idCurso,
+     idEstudiante: estudiante.idEstudiante
     })
   }
 

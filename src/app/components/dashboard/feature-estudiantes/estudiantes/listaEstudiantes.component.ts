@@ -75,7 +75,7 @@ export class ListaEstudiantesComponent implements OnInit {
       localStorage.setItem('estudiantes', JSON.stringify(this.listaux));
 
 
-       console.log("Estudiantes localstorage");
+       console.log("Estudiantes");
        console.log(this.lista);
       })
   }
@@ -150,7 +150,7 @@ export class ListaEstudiantesComponent implements OnInit {
       edad: estudiante.edad,
       correo:estudiante.correo,
       telefono: estudiante.telefono,
-      // cursos: this.inscripcionesService.getInscripcionesList()
+      cursos: this.inscripcionesService.getInscripcionesList()
     },
   });
 

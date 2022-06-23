@@ -11,6 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { CursosService } from '../../feature-cursos/cursos/services/cursos.service';
 import { ListaEstudiantesService } from '../../feature-estudiantes/services/listaEstudiantes.service';
+import { Cursos } from 'src/app/shared/interfaces/cursos';
+import { EstudiantesLista } from 'src/app/shared/interfaces/estudiantes';
 
 
 @Component({
@@ -36,6 +38,8 @@ export class EditarInscripcionComponent implements OnInit {
 
  form!: FormGroup;
  value: any = null;
+ cur:Cursos[]=JSON.parse(localStorage.getItem('cursos') || 'false')
+ est:EstudiantesLista[]=JSON.parse(localStorage.getItem('estudiantes') || 'false')
 
   // cursos:any[]= ['react', 'angular', 'vue', 'react y angular', 'react y vue', 'angular y vue'];
   // dias: any[] = ['lunes y miercoles', 'martes y jueves', 'sabado', 'miercoles y viernes'];
@@ -78,10 +82,16 @@ export class EditarInscripcionComponent implements OnInit {
 inicializar(inscripcion:Inscripciones) {
 
   this.form = this.fb.group({
-    nombre:  ["",  [Validators.required, Validators.maxLength(40), ]],
-    curso:  ["",  [Validators.required]],
+    id: [inscripcion.idInscripcion],
+    nombre:[inscripcion.idEstudiante],
+    curso:[inscripcion.idCurso,  [Validators.required]],
 
     })
+
+    this.form.controls['nombre']?.disable();
+
+    this.form.get('nombre')?.patchValue(this.est[inscripcion.idEstudiante-1].nombre);
+    this.form.get('curso')?.patchValue(this.cur[inscripcion.idCurso-1].cursoNombre);
   console.log(this.form);
   // this.form.get('id')?.setValue(inscripcion.nombre);
   // this.form.get('curso')?.setValue(inscripcion.curso);
@@ -93,16 +103,18 @@ updateEstudiante(inscripcionForm: FormGroup){
   console.log("estoy en inscripcionform")
   console.log(inscripcionForm)
   var inscripcionToUpdate: Inscripciones={
-    idInscripcion: inscripcionForm.value.idInscripcion,
-    idEstudiante: inscripcionForm.value.idEstudiante,
-    idCurso: inscripcionForm.value.idCurso
+    idInscripcion: inscripcionForm.value.id,
+    idEstudiante: inscripcionForm.value.nombre,
+    idCurso: inscripcionForm.value.curso
       }
 
+      console.log("gato a actualizar");
+      console.log(inscripcionForm)
   this._inscripcionesService.updateInscripcionSer(inscripcionToUpdate)
   this._inscripcionesService.getInscripcionesList();
 
     this.router.navigate(['/dashboard/inscripciones']);
-    this._snackBar.open('Estudiante editado exitosamente','', {
+    this._snackBar.open('Inscripcion editada exitosamente','', {
       horizontalPosition: 'center',
       verticalPosition: 'top',
       duration: 1500,

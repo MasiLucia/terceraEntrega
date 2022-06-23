@@ -68,8 +68,6 @@ export class ListaEstudiantesService {
 
 
 getSingleStudent(idEstudiante:any): Observable<EstudiantesLista> {
-  console.log("desde el single studnetn");
-  console.log(idEstudiante);
 return this.http.get<EstudiantesLista>(this.listaEstudiantes + idEstudiante) ;
 
 }

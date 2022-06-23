@@ -17,32 +17,17 @@
         <div>
 
         </div>
-        <p>
-        <mat-list-item role="listitem">Cursos:
-
-              <tr >
-                 <td>{{data}}</td>
-             </tr>
-
-
-
-         </mat-list-item>
-        </p>
         <!-- <a (click)="cerrar()" class="btn btn-primary">Cerrar</a> -->
       </div>
     </div>
   </mat-card>
 </div>
 
-<table
-  mat-table
-  [dataSource]="detalleDeCursos$"
-  class="mat-elevation-z8 full-width-min"
->
+<table mat-table [dataSource]="auxCurso" class="mat-elevation-z8 full-width-min">
   <ng-container matColumnDef="cursoNombre">
     <th mat-header-cell *matHeaderCellDef>Nombre Curso</th>
     <td mat-cell *matCellDef="let element">
-      {{ element.cursoNombre}}
+      {{ element | nombreCurso}}
     </td>
   </ng-container>
 

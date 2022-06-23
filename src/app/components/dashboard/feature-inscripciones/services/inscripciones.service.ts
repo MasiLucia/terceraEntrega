@@ -82,17 +82,13 @@ export class InscripcionesService {
   // }
 
   updateInscripcionSer(inscripcion: Inscripciones) {
-    return this.http
-      .put(
-        `${this.URLlistaInscripciones}/${inscripcion.idInscripcion}`,
-        inscripcion
-      )
-      .pipe(
-        tap({
-          next: () => this.inscripcionSubject.next(inscripcion),
-        })
-      );
-  }
+    var response: any;
+  response  = this.http.put(this.URLlistaInscripciones + inscripcion.idInscripcion,inscripcion).subscribe(data => {
+      console.log("data")
+      console.log(data)
+     return data;
+  })
+}
 
   maxId(inscripciones: Inscripciones[]) {
     return Math.max.apply(
@@ -103,21 +99,21 @@ export class InscripcionesService {
     );
   }
 
-  // misCursos(id_estudiante:number){
-  //   let miscursos:Observable<Cursos>;
+  misCursos(idEstudiante:number){
+    let miscursos:Cursos[]= [];
 
-  //      this.listaInscripciones.map(let i = 0; i < this.listaInscripciones.length; i++){
-  //        if(this.listaInscripciones[i].(JSON.parse(idEstudiante))===id_estudiante){
 
-  //          this.cursito=this.cursosService.getCursosList(this.).subscribe((response:Cursos) => {
-  //           this.cursito = response;
-  //       });
-  //          console.log(this.cursito);
-  //            miscursos.push(this.cursito);
-  //          }
-  // }
-  //   return miscursos;
-  // }
+   let cursos=JSON.parse(localStorage.getItem('cursos') || 'false')
+   let inscripciones= JSON.parse(localStorage.getItem('inscripciones') || 'false')
+       for(let i = 0; i < inscripciones.length; i++){
+         if(String(inscripciones[i].idEstudiante)===(String(idEstudiante))){
+          miscursos.push(cursos[inscripciones[i].idCurso-1  ].idCurso)
+           }
+        }
+        console.log("loscursitosde mis cursos");
+        console.log(miscursos);
+    return miscursos;
+  }
 
   // misCursos(id_estudiante:number){
   //   this.listaestudiantes.map((inscripciones) => {

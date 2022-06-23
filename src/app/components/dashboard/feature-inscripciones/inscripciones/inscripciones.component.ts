@@ -70,8 +70,9 @@ export class InscripcionesComponent implements OnInit {
     this._inscripcionesService.getInscripcionesList().subscribe((data) => {
       this.listaInscripciones = data;
 
-      console.log('data');
+      console.log('inscripciones st');
       console.log(this.listaInscripciones);
+      localStorage.setItem('inscripciones', JSON.stringify(data));
     });
   }
 
@@ -124,11 +125,10 @@ export class InscripcionesComponent implements OnInit {
         this.router.navigate(['dashboard/inscripciones']);
         this._inscripcionesService
           .updateInscripcionSer(result)
-          .subscribe(() => {
-            this.store.dispatch(cargarInscripciones());
-          });
+        this.getInscripciones();
       }
     });
+
   }
 
   // openDialog(inscripcionToUpdate:any) {

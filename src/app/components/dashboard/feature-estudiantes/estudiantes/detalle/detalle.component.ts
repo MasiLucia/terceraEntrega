@@ -24,6 +24,7 @@ export class DetalleComponent implements OnInit {
 
   dataSource: any;
   usuario: any;
+  auxCurso: any;
 
   displayedColumns: string[] = ['cursoNombre'];
 
@@ -45,25 +46,28 @@ export class DetalleComponent implements OnInit {
 
   ngOnInit(): void {
     this.cursitos=[];
-    // this.inicializar(this.data);
+    this.inicializar(this.data);
     console.log("cursos");
     console.log(this.cursitos);
+    //  this.cursosService.getCursosList().subscribe((res: any) => {
+    //   this.auxCurso = res;
+    // });
   }
 
-//   inicializar(estudiante:EstudiantesLista) {
-//     this.cursitos=this.inscripcionesService.misCursos(estudiante.idEstudiante)
-//     this.form = this.fb.group({
-//       idEstudiante:  estudiante.nombre + " " + estudiante.apellido,
-//       edad:  estudiante.edad,
-//       correo: estudiante.correo,
-//       telefono:  estudiante.telefono,
-//       cursos: this.cursitos,
-//     })
-//   }
+  inicializar(estudiante:EstudiantesLista) {
+    this.auxCurso=this.inscripcionesService.misCursos(estudiante.idEstudiante)
+    this.form = this.fb.group({
+      idEstudiante:  estudiante.nombre + " " + estudiante.apellido,
+      edad:  estudiante.edad,
+      correo: estudiante.correo,
+      telefono:  estudiante.telefono,
+      cursos: this.cursitos,
+    })
+  }
 
-//   cerrar(){
-//     this.dialogRef.close();
-// }
+  cerrar(){
+    this.dialogRef.close();
+}
 
   onNoClick(): void {
     this.dialogRef.close();
