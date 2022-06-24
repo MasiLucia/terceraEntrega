@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Cursos } from 'src/app/shared/interfaces/cursos';
 import { EstudiantesLista } from 'src/app/shared/interfaces/estudiantes';
 import { Router } from '@angular/router';
@@ -39,6 +39,7 @@ export class ListaEstudiantesComponent implements OnInit {
 
 
 
+
 // dataSource!: Observable<EstudiantesLista[]>
 
   // dataSource = new MatTableDataSource<any>();
@@ -54,6 +55,7 @@ export class ListaEstudiantesComponent implements OnInit {
     private _estudiantesListaService:ListaEstudiantesService,
     private _snackBar: MatSnackBar,
     private router: Router,
+    private estudiantesService: EstudiantesService,
     public dialog: MatDialog,
     private inscripcionesService: InscripcionesService
     ) {}
@@ -66,11 +68,13 @@ export class ListaEstudiantesComponent implements OnInit {
 
   }
 
+
+  // service
+
   getEstudiantes() {
     this._estudiantesListaService.getEstudiantesList().subscribe(
       (data)=> {
        this.lista= data;
-
        this.listaux=data
       localStorage.setItem('estudiantes', JSON.stringify(this.listaux));
 

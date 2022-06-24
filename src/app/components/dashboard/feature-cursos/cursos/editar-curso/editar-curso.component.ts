@@ -52,20 +52,6 @@ export class EditarCursoComponent implements OnInit {
     }
   }
 
-//     this._cursosService.editarCursos(formCursos);
-//       this.router.navigate(['/dashboard/cursos']);
-//       this._snackBar.open('Estudiante editado exitosamente','', {
-//         horizontalPosition: 'center',
-//         verticalPosition: 'top',
-//         duration: 1500,
-//       })
-//       this.dialogRef.close();
-//       this.form.reset();
-//     }
-// volver(){
-//   this.dialogRef.close();
-// }
-
 inicializar(curso: Cursos) {
 
   this.cursoForm = this.fb.group({

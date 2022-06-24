@@ -31,11 +31,6 @@ export class InscripcionesService {
     return this.http.get<Inscripciones[]>(this.URLlistaInscripciones);
   }
 
-  // getInscripcionesList(): Observable<Inscripciones>
-  // {
-  //   return this.http.get<Inscripciones>(this.listaInscripciones)
-  // }
-
   getSingleInscripcion(idInscripcion: number): Observable<Inscripciones> {
     return this.http.get<Inscripciones>(this.URLlistaInscripciones + idInscripcion);
   }
@@ -50,18 +45,7 @@ export class InscripcionesService {
     return response;
   }
 
-  // createInscripcion(route:string, data: any):Observable<any> {
-  //    return this.http.post(this.listaInscripciones + route, data)
-  // }
 
-  // inscripcion nueva
-  // 1 select de estudiantes totales
-  // 2 select de cursos totales
-  // todo eso viene desde mockapi
-  // curso seleccionado=
-  // alumno seleccionado= validateVerticalPosition
-  // si estas estan vacias
-  // get de todas las inscripciones ciclan el array, comparando el nombre con el id del curso y cada vez que haga match lo guardo.
 
   deleteInscripcion(idInscripcion: number): Observable<Inscripciones> {
     return this.http.delete<Inscripciones>(
@@ -69,17 +53,6 @@ export class InscripcionesService {
     );
   }
 
-  // updateInscripcionSer(inscripcion: Inscripciones): Observable<Inscripciones> {
-  //   var response: any;
-  //   console.log("data")
-  //   response  = this.http.put<Inscripciones>(this.listaInscripciones + inscripcion.idInscripcion, inscripcion).subscribe(data => {
-  //     console.log("data")
-  //     console.log(data)
-  //    return data;
-  //    })
-  //  return response;
-
-  // }
 
   updateInscripcionSer(inscripcion: Inscripciones) {
     var response: any;
@@ -115,13 +88,4 @@ export class InscripcionesService {
     return miscursos;
   }
 
-  // misCursos(id_estudiante:number){
-  //   this.listaestudiantes.map((inscripciones) => {
-  //   inscripciones.listaestudiantes.map((inscripcion: any)=> {
-  //       if(this.cursoSelected == inscripcion) {
-  //       this.inscripcionesAlCurso.push(inscripciones)
-  //     }
-  //   })
-  // } )
-  // }
 }

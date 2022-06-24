@@ -2,11 +2,12 @@
 import { Injectable } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class EstudiantesService {
-/*
+
   ListaEstudiantes=  [
     // {id:1, nombre: "Juan Carlos",  apellido:"Martinez", inscripciones:[{id: 1, curso: "React", nota: 10}], usuario: 'jc345'}
   {id:1,nombre: "Juan Carlos",  apellido:"Martinez",curso: 'React', nota: 4 , usuario: 'jc345'},
@@ -22,30 +23,30 @@ export class EstudiantesService {
   ];
   constructor() { }
 
-  getEstudiantes(){
-    return this.ListaEstudiantes.slice();
-  }
+  // getAlumnos(){
+  //   return this.ListaEstudiantes.slice();
+  // }
 
-  eliminarEstudiante(index: number){
-    this.ListaEstudiantes.splice(index, 1);
-  }
+  // eliminarEstudiante(index: number){
+  //   this.ListaEstudiantes.splice(index, 1);
+  // }
 
-  editarEstudiante(estudiante: Estudiantes){
-      const index = this.ListaEstudiantes.findIndex(c => c.id === estudiante.id)
-      this.ListaEstudiantes[index] = estudiante;
-  }
+  // editarEstudiante(estudiante: mockEstudiantes){
+  //     const index = this.ListaEstudiantes.findIndex(c => c.id === estudiante.id)
+  //     this.ListaEstudiantes[index] = estudiante;
+  // }
 
-  agregarEstudiante(estudiante: Estudiantes){
-    this.ListaEstudiantes.unshift(estudiante);
+  // agregarEstudiante(estudiante: mockEstudiantes){
+  //   this.ListaEstudiantes.unshift(estudiante);
 
-  }
+  // }
 
-  editEstudiante(estudiante: Estudiantes) {
-
-
-    const index = this.ListaEstudiantes.findIndex(c => c.id === estudiante.id);
-    this.ListaEstudiantes[index] = estudiante;
+  // editEstudiante(estudiante: mockEstudiantes) {
 
 
-  }*/
+  //   const index = this.ListaEstudiantes.findIndex(c => c.id === estudiante.id);
+  //   this.ListaEstudiantes[index] = estudiante;
+
+
+  // }
 }

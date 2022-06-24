@@ -6,10 +6,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../material/material.module';
 import { RouterModule } from '@angular/router';
+// import { ListaEstudiantes } from './services/lista-estudiantes.service.spec.ts/lista-estudiantes.service.spec.ts.component';
 
 @NgModule({
   declarations: [
 
+
+    // ListaEstudiantes.Service.Spec.TsComponent
   ],
   imports: [
     CommonModule,

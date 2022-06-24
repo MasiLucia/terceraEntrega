@@ -6,6 +6,6 @@ export interface EstudiantesLista {
   apellido: string;
   edad:number;
   correo: string;
-  telefono: number;
+  telefono: string;
 
 }
